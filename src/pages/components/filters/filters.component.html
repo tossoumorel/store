@@ -1,0 +1,17 @@
+@if (categories) {
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title> Catégories </mat-panel-title>
+  </mat-expansion-panel-header>
+  <mat-selection-list [multiple]="false" [hideSingleSelectionIndicator]="true">
+    @for (categorie of categories; track categorie) {
+    <mat-list-option>
+      <button (click)="onShowCategory(categorie)">
+        {{categorie}}
+      </button>
+    </mat-list-option>
+    }
+  </mat-selection-list>
+</mat-expansion-panel>
+
+}
