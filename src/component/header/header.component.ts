@@ -7,6 +7,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { RouterModule } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
 import { cart } from '../../app/models/cart.model';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -19,17 +20,22 @@ import { cart } from '../../app/models/cart.model';
     MatMenuModule,
     RouterModule,
     CurrencyPipe,
-  
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })
 export class HeaderComponent {
-_cart : cart = {items : []}
+  _cart: cart = { items: [] };
+  itemQuantity = 0;
+  @Input()
+  get cart() {
+    return this._cart;
+  }
 
-@Input()
-get cart(){
-  return this._cart
-}
-
+  set cart(cart: cart) {
+    this._cart = cart;
+    this.itemQuantity = this._cart.items
+      .map((item) => item.quantity)
+      .reduce((acc, prev) => acc + prev, 0);
+  }
 }
