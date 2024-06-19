@@ -27,10 +27,10 @@ import { map } from 'rxjs';
 export class HeaderComponent {
   _cart: cart = { items: [] };
   itemQuantity = 0;
-  @Input()
-  get cart() {
-    return this._cart;
-  }
+ @Input()
+ get cart(){
+  return this._cart
+ }
 
   set cart(cart: cart) {
     this._cart = cart;
