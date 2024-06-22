@@ -1,13 +1,15 @@
 <mat-toolbar class="max-w-full container justify-between">
   <a routerLink="/home">E-com</a>
   <button mat-icon-button [mat-menu-trigger-for]="menu">
-    <mat-icon [matBadge]="1" matBadgeColor="warn" aria-hidden="false"> shopping_cart </mat-icon>
+    <mat-icon [matBadge]="1" 
+    [matBadgeHidden]="!itemQuantity"
+    matBadgeColor="warn" aria-hidden="false"> shopping_cart </mat-icon>
   </button>
   <mat-menu #menu="matMenu">
     <div class="p-3 divide-y-2 divide-solid">
       <!-- Le nombre d'article choisir -->
       <div class="pb-3 flex justify-between">
-        <span class="mr-16">1 items</span>
+        <span class="mr-16"> {{itemQuantity}} </span>
         <a routerLink="cart">views cart</a>
       </div>
       <!-- Le différentes article fois le  prix -->
