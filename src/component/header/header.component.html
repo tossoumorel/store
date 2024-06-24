@@ -1,40 +1,45 @@
 <mat-toolbar class="max-w-full container justify-between">
   <a routerLink="/home">E-com</a>
   <button mat-icon-button [mat-menu-trigger-for]="menu">
-    <mat-icon [matBadge]="1" 
-    [matBadgeHidden]="!itemQuantity"
-    matBadgeColor="warn" aria-hidden="false"> shopping_cart </mat-icon>
+    <mat-icon
+      [matBadge]="itemQuantity"
+      [matBadgeHidden]="!itemQuantity"
+      matBadgeColor="warn"
+      aria-hidden="false"
+    >
+      shopping_cart
+    </mat-icon>
   </button>
   <mat-menu #menu="matMenu">
     <div class="p-3 divide-y-2 divide-solid">
       <!-- Le nombre d'article choisir -->
       <div class="pb-3 flex justify-between">
-        <span class="mr-16"> {{itemQuantity}} </span>
+        <span class="mr-16"> {{ itemQuantity }} </span>
         <a routerLink="cart">views cart</a>
       </div>
       <!-- Le différentes article fois le  prix -->
+      @if (_cart.items.length) {
       <div class="py-3">
+        @for (item of _cart.items; track $index) {
         <div class="flex justify-between font-light mb-2">
-          keyborad x 1
-          <span> {{ 150 | currency }} </span>
+          {{ item.name }} x {{ item.quantity }}
+          <span> {{ item.price | currency }} </span>
         </div>
-        <div class="flex justify-between font-light mb-2">
-          keyborad x 1
-          <span> {{ 150 | currency }} </span>
-        </div>
-        <div class="flex justify-between font-light mb-2">
-          keyborad x 1
-          <span> {{ 150 | currency }} </span>
+       
+        }
+        <!-- Résumée le total des articles -->
+        <div class="flex justify-between py-3">
+          Total
+          <span class="font-light">{{ getTotals(_cart.items) | currency }}</span>
         </div>
       </div>
-      <!-- Résumée le total des articles -->
-      <div class="flex justify-between py-3">
-        Total
-        <span class="font-light">{{ 450 | currency }}</span>
-      </div>
+      }
+
       <!-- supprimer et afficher la liste des élements sélectionnés -->
       <div class="pt-3 flex justify-between">
-        <button class="bg-red-600 rounded-full text-white w-9 h-9">
+        <button
+        (click)="clearCart()"
+         class="bg-red-600 rounded-full text-white w-9 h-9">
           <mat-icon> remove_shopping_cart </mat-icon>
         </button>
         <button class="bg-green-600 rounded-full text-white w-9 h-9">

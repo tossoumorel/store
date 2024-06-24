@@ -10,6 +10,7 @@ import {
   MatRowDef,
   MatTableModule,
 } from '@angular/material/table';
+import { CartService } from '../../app/services/cart.service';
 
 @Component({
   selector: 'app-cart',
@@ -26,13 +27,14 @@ import {
     CurrencyPipe,
     MatColumnDef,
     MatRowDef,
-    
   ],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css',
 })
 export class CartComponent implements OnInit {
-  cartfilter = []
+  constructor(private cartServices: CartService) {}
+
+  cartfilter = [];
   cart: cart = {
     items: [
       {
@@ -54,6 +56,9 @@ export class CartComponent implements OnInit {
 
   datasource: Array<cartItem> = [];
   ngOnInit(): void {
+    this.cartServices.cart.subscribe((_cart) => {
+      this.cart = _cart;
+    });
     this.datasource = this.cart.items;
   }
   displaydeColumns: Array<string> = [
@@ -66,16 +71,18 @@ export class CartComponent implements OnInit {
   ];
 
   getTotal(items: Array<cartItem>) {
-   return items
-      .map((item) => item.quantity * item.price)
-      .reduce((prev, acc) => prev + acc,0);
+    return this.cartServices.getTotal(items);
   }
 
-  clearAll(){
-    this.cart.items = []
+  clearAll() {
+    this.cartServices.clearcart();
   }
 
-  clearOne(cart:Array<cartItem>){
+  onClear(item : cartItem){
+this.cartServices.removeCart(item)
+  }
 
+  onAddQuantity(item : cartItem){
+this.cartServices.addToCart(item)
   }
 }

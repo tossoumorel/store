@@ -27,6 +27,4 @@ onAddToCart(){
 this.addToCart.emit(this.product)
 }
 
-
-
 }
