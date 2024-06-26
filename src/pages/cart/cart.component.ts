@@ -85,4 +85,8 @@ this.cartServices.removeCart(item)
   onAddQuantity(item : cartItem){
 this.cartServices.addToCart(item)
   }
+
+  onRemoveQuantity(item : cartItem){
+    this.cartServices.removeQuantity(item)
+  }
 }

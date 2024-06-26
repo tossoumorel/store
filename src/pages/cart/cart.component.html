@@ -32,7 +32,7 @@
       <th mat-header-cell *matHeaderCellDef>Quantity</th>
       <td mat-cell *matCellDef="let element" class=" items-center">
         <button 
-        
+        (click)="onRemoveQuantity(element)"
         mt-icon-button>
           <mat-icon> remove </mat-icon>
         </button>

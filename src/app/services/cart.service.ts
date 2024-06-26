@@ -22,6 +22,24 @@ export class CartService {
     console.log(this.cart.value);
   }
 
+  removeQuantity(item: cartItem):void {
+    let itemRemoveCart: cartItem | undefined;
+    let filterItems = this.cart.value.items.map((_item) => {
+      if (_item.id === item.id) {
+        item.quantity-=1;
+        if (_item.quantity === 0) {
+          itemRemoveCart = _item;
+        }
+      }
+      return _item;
+    });
+    if (itemRemoveCart) {
+      filterItems = this.removeCart(itemRemoveCart, false);
+    }
+    this.cart.next({items : filterItems})
+    this.sneckbar.open('1 cart item', 'Ok', { duration: 3000 });
+  }
+
   getTotal(items: Array<cartItem>) {
     return items
       .map((item) => item.quantity * item.price)
@@ -33,11 +51,14 @@ export class CartService {
     this.sneckbar.open('item clear', 'ok', { duration: 3000 });
   }
 
-  removeCart(item: cartItem) {
+  removeCart(item: cartItem, notify = true): Array<cartItem> {
     const filterItems = this.cart.value.items.filter(
       (_item) => _item.id !== item.id
     );
-    this.cart.next({ items: filterItems });
-    this.sneckbar.open(' 1 Item clear', 'ok', { duration: 3000 });
+    if (notify) {
+      this.cart.next({ items: filterItems });
+      this.sneckbar.open(' 1 Item clear', 'ok', { duration: 3000 });
+    }
+    return filterItems;
   }
 }
