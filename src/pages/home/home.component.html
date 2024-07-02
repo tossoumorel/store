@@ -10,13 +10,17 @@
       (coulumCountChange)="onColumnsUpdate($event)"
     ></app-products-header>
     <mat-grid-list gutterSize="16" [cols]="cols" [rowHeight]="rowHeight">
+      @for (product of products; track $index) {
       <mat-grid-tile>
-        <app-product-box 
-    (addToCart)="onAddcart($event)"
-        class="w-full" 
-        [fullWithMode]="cols ===1">
-      </app-product-box>
+        <app-product-box
+          [product]="product"
+          (addToCart)="onAddcart($event)"
+          class="w-full"
+          [fullWithMode]="cols === 1"
+        >
+        </app-product-box>
       </mat-grid-tile>
+      }
     </mat-grid-list>
   </mat-drawer-content>
 </mat-drawer-container>

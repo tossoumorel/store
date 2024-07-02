@@ -1,25 +1,25 @@
 <mat-card [ngClass]="{ 'text-center': !fullWithMode }">
   <div [ngClass]="{ 'flex': fullWithMode, }" >
     <img
-      src="https://via.placeholder.com/200"
+      [src]="product?.image"
       alt=""
-      [ngClass]="{'h-[200px]' : !fullWithMode , 'h-360px':fullWithMode, }"
+      [ngClass]="{'h-[100px]' : !fullWithMode , 'h-200px':fullWithMode, }"
     />
 
     <div class="w-full"
     [ngClass]="{'px-8 flex flex-col justify-between':fullWithMode}"
     >
       <div>
-        <h5>shoes</h5>
-        <p class="truncate hover:whitespace-normal">sniclers</p>
+        <h5>{{product?.category}}</h5>
+        <p class="truncate hover:whitespace-normal">{{product?.title}}</p>
         @if (fullWithMode) {
-          <p>Description</p>
+          <p>{{product?.description}}</p>
         }
         
       </div>
       <div class="flex justify-between">
         <span class="text-red-400">
-          {{ 150 | currency }}
+          {{ product?.price | currency }}
         </span>
         <button (click)="onAddToCart()">
           <mat-icon class="text-gray-500"> shopping_cart</mat-icon>

@@ -6,25 +6,17 @@ import { Product } from '../app/models/product.model';
 @Component({
   selector: 'app-product-box',
   standalone: true,
-  imports: [MatCardModule, CurrencyPipe, MatIconModule, NgClass,NgIf],
+  imports: [MatCardModule, CurrencyPipe, MatIconModule, NgClass, NgIf],
   templateUrl: './product-box.component.html',
   styleUrl: './product-box.component.css',
 })
 export class ProductBoxComponent {
-@Input() fullWithMode = true;
+  @Input() fullWithMode = true;
 
-product: Product| undefined= {
-  id : 1,
-  title : "snickers",
-  price : 150,
-  category : "Shoes",
-  description : "description",
-  image : "https://via.placeholer.com/200",
-}
+  @Input() product: Product | undefined;
 
-@Output() addToCart = new EventEmitter()
-onAddToCart(){
-this.addToCart.emit(this.product)
-}
-
+  @Output() addToCart = new EventEmitter();
+  onAddToCart() {
+    this.addToCart.emit(this.product);
+  }
 }
