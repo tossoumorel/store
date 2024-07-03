@@ -10,6 +10,6 @@ Angular Material : "https://material.angular.io/"
 
 Tailwind CSS: "https://tailwindcss.com/"
 
-API Store:
+API Store: "https://fakestoreapi.com/"
 
 Stripe: "https://stripe.com/fr"
