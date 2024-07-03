@@ -8,6 +8,8 @@
   <mat-drawer-content class="p-6">
     <app-products-header
       (coulumCountChange)="onColumnsUpdate($event)"
+      (itemCountChange)="onCoulumChange($event)"
+      (sortChange)="onSortChange($event)"
     ></app-products-header>
     <mat-grid-list gutterSize="16" [cols]="cols" [rowHeight]="rowHeight">
       @for (product of products; track $index) {

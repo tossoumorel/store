@@ -24,25 +24,26 @@ const row_Height: { [id: number]: number } = { 1: 400, 3: 335, 4: 350 };
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
-export class HomeComponent implements OnInit ,OnDestroy{
-  constructor(private cartService: CartService, private store : StoreService) {}
+export class HomeComponent implements OnInit, OnDestroy {
+  constructor(private cartService: CartService, private store: StoreService) {}
   cols = 1;
   rowHeight = row_Height[this.cols];
   categorie: string | undefined;
   products: Array<Product> | undefined;
   sort = 'desc';
-  count = "12";
-  private productSubscription! : Subscription;
+  count = '12';
+  private productSubscription!: Subscription;
 
   ngOnInit(): void {
-    this.getAllProduct()
+    this.getAllProduct();
   }
 
-  getAllProduct(){
-    this.productSubscription = this.store.getProduct(this.count, this.sort)
-    .subscribe((_product)=>{
-      this.products = _product
-    })
+  getAllProduct() {
+    this.productSubscription = this.store
+      .getProduct(this.count, this.sort)
+      .subscribe((_product) => {
+        this.products = _product;
+      });
   }
 
   onColumnsUpdate(newCol: number): void {
@@ -52,7 +53,7 @@ export class HomeComponent implements OnInit ,OnDestroy{
   onShowCategories(newCategorie: string): void {
     this.categorie = newCategorie;
   }
-  onAddcart(product: Product) {
+  onAddcart(product: Product) :void{
     this.cartService.addToCart({
       product: product.image,
       name: product.title,
@@ -62,10 +63,19 @@ export class HomeComponent implements OnInit ,OnDestroy{
     });
   }
 
+  onCoulumChange(newColum: number): void {
+    this.count = newColum.toString();
+    this.getAllProduct();
+  }
+
+  onSortChange(newSort: string): void {
+    this.sort = newSort;
+    this.getAllProduct();
+  }
+
   ngOnDestroy(): void {
     if (this.productSubscription) {
-      this.productSubscription?.unsubscribe() 
+      this.productSubscription?.unsubscribe();
     }
-    
   }
 }

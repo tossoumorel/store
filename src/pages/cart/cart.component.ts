@@ -70,23 +70,23 @@ export class CartComponent implements OnInit {
     'action',
   ];
 
-  getTotal(items: Array<cartItem>) {
+  getTotal(items: Array<cartItem>){
     return this.cartServices.getTotal(items);
   }
 
-  clearAll() {
+  clearAll(){
     this.cartServices.clearcart();
   }
 
-  onClear(item : cartItem){
+  onClear(item : cartItem):void{
 this.cartServices.removeCart(item)
   }
 
-  onAddQuantity(item : cartItem){
+  onAddQuantity(item : cartItem):void{
 this.cartServices.addToCart(item)
   }
 
-  onRemoveQuantity(item : cartItem){
+  onRemoveQuantity(item : cartItem):void{
     this.cartServices.removeQuantity(item)
   }
 }
